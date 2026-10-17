@@ -165,6 +165,27 @@ tests/              Core unit tests
 requirements.txt    Python dependencies
 ```
 
-## License and citation
+## Citation
 
-Code and project-authored documentation use the [MIT License](LICENSE). The data and publication PDF retain their respective terms. See [CITATION.cff](CITATION.cff) for the paper citation.
+If you find this repository useful, please cite our paper:
+
+```bibtex
+@inproceedings{zhao2027online,
+  author = {Zhao, Jiangtao and Zhang, Lin and He, Tiantian and Zhang, Tianyi and Wang, Ximeng and Wang, Bin and Hong, Feng},
+  title = {Online Fatigue-Aware Power Dispatch for Wind Farms with Hard Feasibility Guarantees},
+  booktitle = {Machine Learning and Knowledge Engineering for Decision Making},
+  year = {2027},
+  series = {Lecture Notes in Computer Science},
+  volume = {16752},
+  pages = {586--603},
+  publisher = {Springer Nature Singapore},
+  doi = {10.1007/978-981-92-2369-5_36},
+  url = {https://doi.org/10.1007/978-981-92-2369-5_36}
+}
+```
+
+Citation metadata is also available in [CITATION.cff](CITATION.cff).
+
+## License
+
+Code and project-authored documentation use the [MIT License](LICENSE). The data and publication PDF retain their respective terms.

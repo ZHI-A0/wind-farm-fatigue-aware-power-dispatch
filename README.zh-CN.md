@@ -165,6 +165,27 @@ tests/              核心计算单元测试
 requirements.txt    Python依赖
 ```
 
-## 许可与引用
+## 引用
 
-代码和项目编写的文档采用 [MIT许可证](LICENSE)；数据和论文PDF适用各自授权。论文引用信息见 [CITATION.cff](CITATION.cff)。
+如果你觉得本项目有用，请引用我们的论文：
+
+```bibtex
+@inproceedings{zhao2027online,
+  author = {Zhao, Jiangtao and Zhang, Lin and He, Tiantian and Zhang, Tianyi and Wang, Ximeng and Wang, Bin and Hong, Feng},
+  title = {Online Fatigue-Aware Power Dispatch for Wind Farms with Hard Feasibility Guarantees},
+  booktitle = {Machine Learning and Knowledge Engineering for Decision Making},
+  year = {2027},
+  series = {Lecture Notes in Computer Science},
+  volume = {16752},
+  pages = {586--603},
+  publisher = {Springer Nature Singapore},
+  doi = {10.1007/978-981-92-2369-5_36},
+  url = {https://doi.org/10.1007/978-981-92-2369-5_36}
+}
+```
+
+引用信息也提供于 [CITATION.cff](CITATION.cff)。
+
+## 许可
+
+代码和项目编写的文档采用 [MIT许可证](LICENSE)；数据和论文PDF适用各自授权。
