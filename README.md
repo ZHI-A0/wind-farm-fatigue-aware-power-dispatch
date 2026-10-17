@@ -1,14 +1,14 @@
-# 风电场疲劳感知在线功率调度
+# Online Fatigue-Aware Power Dispatch
 
-本项目提供风电场载荷建模、在线有功功率分配及疲劳指标评估代码。输入为风速、功率指令、历史载荷和机组状态，输出为各机组功率分配、预测载荷和疲劳指标。
+Code for wind-farm load modeling, online active-power allocation, and fatigue-index evaluation. Inputs include wind speed, power commands, historical load channels, and turbine states; outputs include turbine power allocations, reconstructed loads, and fatigue metrics.
 
-论文：**Online Fatigue-Aware Power Dispatch for Wind Farms with Hard Feasibility Guarantees**，FLINS–ISKE 2026。
+Associated paper: **Online Fatigue-Aware Power Dispatch for Wind Farms with Hard Feasibility Guarantees**, FLINS–ISKE 2026.
 
-[论文 PDF](paper/Published_FLINS2026_OnlinePowerDispatch.pdf) · [论文 DOI](https://doi.org/10.1007/978-981-92-2369-5_36) · [English README](README.en.md)
+[Paper PDF](paper/Published_FLINS2026_OnlinePowerDispatch.pdf) · [DOI](https://doi.org/10.1007/978-981-92-2369-5_36) · [中文说明](README.zh-CN.md)
 
-## 安装
+## Installation
 
-Python 3.12，依赖版本见 `requirements.txt`。
+Use Python 3.12. Dependencies are listed in `requirements.txt`.
 
 ```bash
 python -m venv .venv
@@ -16,19 +16,19 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Windows 使用 `.venv\Scripts\activate` 激活虚拟环境。
+On Windows, activate the environment with `.venv\Scripts\activate`.
 
-## 运行实验
+## Run experiments
 
-运行全部四个场景：
+Run all four scenarios:
 
 ```bash
 python run_experiments.py
 ```
 
-默认使用 `scripts/config.yaml`，运行 `mean`、`proportional`、`optimized` 三种策略，并将模型、调度轨迹、统计指标和日志保存到 `outputs/run_<运行时间>/`。
+The default configuration is `scripts/config.yaml`. The runner fits models, runs `mean`, `proportional`, and `optimized`, and writes models, schedules, metrics, and logs to `outputs/run_<timestamp>/`.
 
-运行单个场景：
+Run a single scenario:
 
 ```bash
 python run_experiments.py --case wf1_temporal
@@ -37,7 +37,7 @@ python run_experiments.py --case wf1_to_wf2
 python run_experiments.py --case wf2_to_wf1
 ```
 
-指定配置、策略、随机种子和输出目录：
+Specify a configuration, strategies, seed, and output directory:
 
 ```bash
 python run_experiments.py \
@@ -47,124 +47,124 @@ python run_experiments.py \
   --out-root outputs/my_experiment
 ```
 
-也可以直接调用单次实验入口，指定自己的 NPZ 文件：
+Use the single-experiment entry point for custom NPZ inputs:
 
 ```bash
-# 同风场：前1000步标定，后1000步调度
+# Same farm: first 1000 steps for calibration, last 1000 for dispatch
 python scripts/main.py \
   --data-npz data/data_wf1.npz \
   --out-root outputs --run-name wf1_temporal --skip-snapshot
 
-# 跨风场：WF1标定，WF2前1000步调度
+# Transfer: calibrate on WF1, dispatch on the first 1000 steps of WF2
 python scripts/main.py \
   --fit-data-npz data/data_wf1.npz \
   --data-npz data/data_wf2.npz --eval-start 0 \
   --out-root outputs --run-name wf1_to_wf2 --skip-snapshot
 ```
 
-## 数据集内容与格式
+## Dataset contents and formats
 
-包含两个风场，每个风场 **100 台机组、2000 个采样点、1 Hz 采样频率**。WF1、WF2 分别对应论文中的 Farm A、Farm B。原始时间为第1至第2000秒；NPZ 沿用时间顺序，使用从0开始的数组索引。
+Each of the two farms contains **100 turbines and 2000 samples at 1 Hz**. WF1 and WF2 correspond to Farm A and Farm B in the paper. Original time values run from 1 to 2000 seconds; NPZ arrays preserve time order and use zero-based indexing.
 
-| 文件 | 格式 | 内容 |
+| File | Format | Contents |
 |---|---|---|
-| `data/raw/wind_farms.mat` | MATLAB MAT | 两个风场的原始时间、输入、输出和状态数据 |
-| `data/data_wf1.npz` | NumPy 压缩归档 | WF1 的风速、功率、载荷和状态数组 |
-| `data/data_wf2.npz` | NumPy 压缩归档 | WF2 的风速、功率、载荷和状态数组 |
+| `data/raw/wind_farms.mat` | MATLAB MAT | Original time, input, output, and state channels for both farms |
+| `data/data_wf1.npz` | Compressed NumPy archive | WF1 wind, power, load, and state arrays |
+| `data/data_wf2.npz` | Compressed NumPy archive | WF2 wind, power, load, and state arrays |
 
-### 原始 MAT 结构
+### Original MAT structure
 
-根变量为 `data_TS_WF`，包含 `WF_1` 和 `WF_2`；每个风场的 `WT` 包含100台机组。每台机组包含以下字段，列序按原始MAT的一基列号说明：
+The root variable `data_TS_WF` contains `WF_1` and `WF_2`. Each farm has a `WT` collection with 100 turbines. Each turbine contains the following fields; column numbers below are one-based MATLAB indices.
 
-| 字段 | 每台机组的数据规模 | 内容 |
+| Field | Size per turbine | Contents |
 |---|---|---|
-| `time` | 2000个时间点 | 时间，单位s |
-| `inputs` | `(2000, 2)` | 第1列功率指令 Pref（W）；第2列风速 v（m/s） |
-| `outputs` | `(2000, 3)` | 第1列主轴扭矩 Tshaft（N·m）；第2列塔架推力 Ft（N）；第3列实际功率 Pout（W） |
-| `states` | `(2000, 3)` | 第1列桨距角（deg）；第2列低速轴转速（rad/s）；第3列高速轴转速（rad/s） |
+| `time` | 2000 time values | Time in seconds |
+| `inputs` | `(2000, 2)` | Column 1: power reference Pref (W); column 2: wind speed (m/s) |
+| `outputs` | `(2000, 3)` | Column 1: shaft torque (N m); column 2: tower thrust (N); column 3: generated power (W) |
+| `states` | `(2000, 3)` | Column 1: pitch (deg); column 2: low-speed shaft speed (rad/s); column 3: high-speed shaft speed (rad/s) |
 
-### NPZ 字段与含义
+### NPZ fields
 
-数组类型均为 `float64`。二维数组按 **时间 × 机组** 排列，形状为 `(2000, 100)`；一维 `p_grid` 的形状为 `(2000,)`。MAT 中的功率由W除以 `1e6` 转换为MW，其余通道保持原单位。
+Arrays are `float64`. Two-dimensional arrays are arranged as **time × turbine**, with shape `(2000, 100)`; `p_grid` has shape `(2000,)`. Power channels are converted from W to MW by dividing by `1e6`. Other channels retain their original units.
 
-| 字段 | 含义 | 单位 | 形状 |
+| Key | Meaning | Unit | Shape |
 |---|---|---|---|
-| `v` | 每台机组的输入风速 | m/s | `(2000, 100)` |
-| `pref` | 每台机组的功率调度指令 | MW | `(2000, 100)` |
-| `p_out` | 每台机组的实际输出功率 | MW | `(2000, 100)` |
-| `pout` | `p_out` 的兼容别名 | MW | `(2000, 100)` |
-| `tshaft` | 主轴扭矩 | N·m | `(2000, 100)` |
-| `ft` | 塔架推力通道 | N | `(2000, 100)` |
-| `pitch` | 叶片桨距角 | deg | `(2000, 100)` |
-| `omega_r` | 低速轴转速 | rad/s | `(2000, 100)` |
-| `omega_f` | 高速轴转速 | rad/s | `(2000, 100)` |
-| `p_grid` | 风场总功率指令，等于各机组 `pref` 之和 | MW | `(2000,)` |
+| `v` | Turbine inflow wind speed | m/s | `(2000, 100)` |
+| `pref` | Turbine power reference | MW | `(2000, 100)` |
+| `p_out` | Generated turbine power | MW | `(2000, 100)` |
+| `pout` | Compatibility alias of `p_out` | MW | `(2000, 100)` |
+| `tshaft` | Main-shaft torque | N m | `(2000, 100)` |
+| `ft` | Tower/thrust load channel | N | `(2000, 100)` |
+| `pitch` | Blade pitch angle | deg | `(2000, 100)` |
+| `omega_r` | Low-speed shaft speed | rad/s | `(2000, 100)` |
+| `omega_f` | High-speed shaft speed | rad/s | `(2000, 100)` |
+| `p_grid` | Farm power instruction: sum of turbine `pref` | MW | `(2000,)` |
 
-读取示例：
+Load an NPZ file:
 
 ```python
 import numpy as np
 
 with np.load("data/data_wf1.npz", allow_pickle=False) as data:
-    wind_speed = data["v"]        # [时间, 机组]
+    wind_speed = data["v"]        # [time, turbine]
     turbine_1_power = data["pref"][:, 0]
     farm_power = data["p_grid"]
 ```
 
-从原始MAT生成NPZ：
+Convert the original MAT to NPZ:
 
 ```bash
 python tools/prepare_data.py --rebuild --output-dir data/rebuilt
 ```
 
-数据文件与字段说明见 [data/README.md](data/README.md)。
+See [data/README.md](data/README.md) for dataset files and channel mapping.
 
-## 实验场景与策略
+## Scenarios and strategies
 
-默认配置使用1000步标定和1000步调度：
+The default configuration uses 1000 calibration steps and 1000 dispatch steps.
 
-| 场景参数 `--case` | 标定数据 | 调度与评估数据 |
+| `--case` | Calibration | Dispatch and evaluation |
 |---|---|---|
-| `wf1_temporal` | WF1前1000步 | WF1后1000步 |
-| `wf2_temporal` | WF2前1000步 | WF2后1000步 |
-| `wf1_to_wf2` | WF1前1000步 | WF2前1000步 |
-| `wf2_to_wf1` | WF2前1000步 | WF1前1000步 |
+| `wf1_temporal` | WF1, first 1000 steps | WF1, last 1000 steps |
+| `wf2_temporal` | WF2, first 1000 steps | WF2, last 1000 steps |
+| `wf1_to_wf2` | WF1, first 1000 steps | WF2, first 1000 steps |
+| `wf2_to_wf1` | WF2, first 1000 steps | WF1, first 1000 steps |
 
-| 策略名 | 含义 |
+| Strategy | Meaning |
 |---|---|
-| `mean` | 均分风场功率，再投影到可行域 |
-| `proportional` | 按风速三次方分配功率，再投影到可行域 |
-| `optimized` | 根据疲劳指标调整分配，结合平滑、对偶更新和可行域投影 |
-| `optimized_legacy` | 可选的历史功率指令、风速比例和平滑混合策略 |
+| `mean` | Uniform allocation followed by feasible-set projection |
+| `proportional` | Wind-speed-cubed allocation followed by projection |
+| `optimized` | Fatigue-guided allocation, smoothing, dual updates, and projection |
+| `optimized_legacy` | Optional blend of historical power references, wind-speed allocation, and smoothing |
 
-疲劳指标用于策略比较，不是校准后的实际寿命消耗。
+Fatigue values are comparative indices rather than calibrated lifetime consumption.
 
-## 输出文件
+## Outputs
 
-每个场景输出：
+Each scenario produces:
 
-| 路径 | 内容 |
+| Path | Contents |
 |---|---|
-| `01_offline_fit/` | 载荷模型、状态映射和拟合统计 |
-| `02_online_and_offline/schedule_<策略>.npz` | 功率、预测载荷、在线损伤增量和逐步耗时 |
-| `02_online_and_offline/online_metrics_<策略>.json` | 对应策略的调度与疲劳统计 |
-| `final_metrics.json` | 配置、拟合信息、各策略在线和离线指标 |
-| `final_table.csv` | 各策略指标汇总 |
+| `01_offline_fit/` | Load model, state mapper, and fitting statistics |
+| `02_online_and_offline/schedule_<strategy>.npz` | Power, predicted loads, online increments, and per-step timings |
+| `02_online_and_offline/online_metrics_<strategy>.json` | Strategy-level dispatch and fatigue statistics |
+| `final_metrics.json` | Configuration, fitting statistics, online and offline metrics |
+| `final_table.csv` | Strategy metric summary |
 
-调度NPZ中的 `p_sched`、`torque_hat`、`thrust_hat`、`damage_step` 形状均为 `(调度步数, 机组数)`，分别表示功率（MW）、预测主轴扭矩（N·m）、预测塔架载荷（N）和在线损伤增量；`solve_ms` 为每步耗时（ms）。批量入口另保存 `experiment_manifest.json` 和 `logs/`。
+Schedule arrays `p_sched`, `torque_hat`, `thrust_hat`, and `damage_step` have shape `(dispatch steps, turbines)` and represent power (MW), shaft torque (N m), tower load (N), and online damage increments. `solve_ms` records per-step latency in milliseconds. Batch runs also write `experiment_manifest.json` and `logs/`.
 
-## 项目结构
+## Layout
 
 ```text
-run_experiments.py    批量实验入口
-scripts/             核心算法和配置
-tools/              原始数据转换工具
-data/               MAT和NPZ数据集
-paper/              出版版论文PDF
-tests/              核心计算单元测试
-requirements.txt    Python依赖
+run_experiments.py    Batch experiment runner
+scripts/             Scientific modules and configuration
+tools/              MAT-to-NPZ data tools
+data/               MAT and NPZ datasets
+paper/              Publication PDF
+tests/              Core unit tests
+requirements.txt    Python dependencies
 ```
 
-## 许可与引用
+## License and citation
 
-代码和项目编写的文档采用 [MIT许可证](LICENSE)；数据和论文PDF适用各自授权。论文引用信息见 [CITATION.cff](CITATION.cff)。
+Code and project-authored documentation use the [MIT License](LICENSE). The data and publication PDF retain their respective terms. See [CITATION.cff](CITATION.cff) for the paper citation.

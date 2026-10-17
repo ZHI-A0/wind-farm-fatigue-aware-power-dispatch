@@ -29,13 +29,13 @@
       "bytes": 1091,
       "sha256": "94919467beedd72e990969754dcc8153211cc81c9745cb1ed237254c1aebd961"
     },
-    "README.en.md": {
-      "bytes": 6983,
-      "sha256": "eb8fa7f7826a9e08a6b3439415390c0f112cb359d73060669c7962e79b996b4a"
-    },
     "README.md": {
-      "bytes": 6629,
-      "sha256": "80712f7628502a27f396d17f25027be69161cd312195fec77accc23b287ac3ea"
+      "bytes": 6989,
+      "sha256": "32b869e98173c61757354f3c48e6d9d28b208ef46b6a37078f3660fa4866475f"
+    },
+    "README.zh-CN.md": {
+      "bytes": 6626,
+      "sha256": "79e020f4bdd704e78017ce2b3c683e6923606880da28455b773fcd0371d5c1f6"
     },
     "data/README.md": {
       "bytes": 1938,
