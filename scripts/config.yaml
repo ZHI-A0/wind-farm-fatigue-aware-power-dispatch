@@ -1,0 +1,62 @@
+# Default configuration for scripts/main.py
+
+io:
+  out_root: outputs
+  snapshot_code: true
+
+experiment:
+  # Default data location (can be overridden by CLI --data-npz / --fit-data-npz).
+  data_npz: data/data_wf2.npz
+  fit_data_npz: ""
+  farm: ""
+  fit_farm: ""
+  train_steps: 1000
+  eval_steps: 1000
+  eval_start: -1
+  strategies: [mean, proportional, optimized]
+
+load_model:
+  type: piecewise_linear
+  feature_mode: auto
+  reg_alpha: 25.0
+  normalize_features: true
+  quantiles: [0.0, 0.33, 0.66, 1.0]
+
+online:
+  p_min: 0.0
+  p_max: 5.0
+  max_dev: 1.0
+  ramp_max: 0.5
+  use_historical_states: false
+  dual_iters: 15
+  dual_step: 0.01
+  wd: 0.6
+  wf: 0.3
+  ws: 0.1
+  damage_gain: 0.25
+
+state_mapper:
+  enabled: true
+  reg_alpha: 10.0
+  normalize_features: true
+
+model_eval:
+  fit_ratio: 0.8
+
+damage:
+  window_size: 10
+  sn_k: 10000000000.0
+  sn_m: 3.0
+  goodman_sigma_u: 1000000000.0
+  use_goodman: true
+
+offline_eval:
+  sn_k: 10000000000.0
+  sn_m: 3.0
+  goodman_sigma_u: 1000000000.0
+  use_goodman: true
+  rainflow_mode: strict
+
+dry_run:
+  total_steps: 2000
+  n_turbines: 100

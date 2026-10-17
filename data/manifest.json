@@ -1,0 +1,32 @@
+{
+  "source_description": "Original project Attachment 2: wind turbine collection data (附件2-风电机组采集数据.mat).",
+  "farms": {
+    "wf1": {
+      "shape": [
+        2000,
+        100
+      ]
+    },
+    "wf2": {
+      "shape": [
+        2000,
+        100
+      ]
+    }
+  },
+  "power_conversion": "Pref and Pout: raw W divided by 1e6 to obtain MW. Other channels unchanged.",
+  "files": {
+    "raw/wind_farms.mat": {
+      "sha256": "68406f58ccbb3ebd70f704ffb45b7a1bfc899c6512228994f4f1d725fe2fbd1b",
+      "bytes": 24585308
+    },
+    "data_wf1.npz": {
+      "sha256": "700aeaa47e8e6373e727f3c007287cc65f106a557bd7f1b6375d3e28dbe0e9f2",
+      "bytes": 13300026
+    },
+    "data_wf2.npz": {
+      "sha256": "82935e51b2d78fb6ea525db949b5b60f730effc62e7d92dd4217122a2435cb3d",
+      "bytes": 13300419
+    }
+  }
+}

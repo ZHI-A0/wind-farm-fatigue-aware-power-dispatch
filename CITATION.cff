@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this implementation or its experimental protocol, please cite the associated paper."
+title: "Online Fatigue-Aware Power Dispatch"
+type: software
+authors:
+  - name: "Online Power Dispatch contributors"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Online Fatigue-Aware Power Dispatch for Wind Farms with Hard Feasibility Guarantees"
+  authors:
+    - family-names: Zhao
+      given-names: Jiangtao
+    - family-names: Zhang
+      given-names: Lin
+    - family-names: He
+      given-names: Tiantian
+    - family-names: Zhang
+      given-names: Tianyi
+    - family-names: Wang
+      given-names: Ximeng
+    - family-names: Wang
+      given-names: Bin
+    - family-names: Hong
+      given-names: Feng
+  doi: "10.1007/978-981-92-2369-5_36"
+  year: 2027
+  start: "586"
+  end: "603"
+  collection-title: "Machine Learning and Knowledge Engineering for Decision Making"
+  publisher:
+    name: "Springer Nature Singapore"

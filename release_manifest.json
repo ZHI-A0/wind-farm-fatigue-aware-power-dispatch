@@ -1,0 +1,117 @@
+{
+  "release_date": "2026-10-17",
+  "implementation": "Sliding-window fatigue-aware wind-farm dispatch",
+  "code_license": "MIT",
+  "dataset_license": "Separate dataset terms; see data/README.md",
+  "paper_license": "Publication PDF retains its original copyright and licensing terms.",
+  "files": {
+    ".gitattributes": {
+      "bytes": 176,
+      "sha256": "5f821a62ab8d2a08728730bc3bc8376ee469a06e6921a4de9b756dd26387dcd6"
+    },
+    ".github/workflows/tests.yml": {
+      "bytes": 559,
+      "sha256": "e090d58bebcec2f8753aba3cb8614e6b0ab6e42b03b046049b906f5d2ea73b69"
+    },
+    ".gitignore": {
+      "bytes": 84,
+      "sha256": "ad071434b0fe66d218e4151822e3e0b6e012f1dfacc815020a3f860b2eabd53b"
+    },
+    ".python-version": {
+      "bytes": 7,
+      "sha256": "7c31b8cce5796f169ade750a43dfa5f9fb4c326e90aab5c8e83189b0f6011eb8"
+    },
+    "CITATION.cff": {
+      "bytes": 973,
+      "sha256": "6092666123ea28701e8da84380697d5f7aa14afb5cf5e85b2d3fc4625e53be61"
+    },
+    "LICENSE": {
+      "bytes": 1091,
+      "sha256": "94919467beedd72e990969754dcc8153211cc81c9745cb1ed237254c1aebd961"
+    },
+    "README.md": {
+      "bytes": 6989,
+      "sha256": "32b869e98173c61757354f3c48e6d9d28b208ef46b6a37078f3660fa4866475f"
+    },
+    "README.zh-CN.md": {
+      "bytes": 6626,
+      "sha256": "79e020f4bdd704e78017ce2b3c683e6923606880da28455b773fcd0371d5c1f6"
+    },
+    "data/README.md": {
+      "bytes": 1938,
+      "sha256": "dbdfee118b62d3b806ced2a3cdf712cebee2a6a806412b724294f4fdec2f8cc7"
+    },
+    "data/SHA256SUMS": {
+      "bytes": 243,
+      "sha256": "7984aebb4b5bf0e467ebe985bd1a477afba20410b4ef1b307cd5f2068af6976e"
+    },
+    "data/data_wf1.npz": {
+      "bytes": 13300026,
+      "sha256": "700aeaa47e8e6373e727f3c007287cc65f106a557bd7f1b6375d3e28dbe0e9f2"
+    },
+    "data/data_wf2.npz": {
+      "bytes": 13300419,
+      "sha256": "82935e51b2d78fb6ea525db949b5b60f730effc62e7d92dd4217122a2435cb3d"
+    },
+    "data/manifest.json": {
+      "bytes": 824,
+      "sha256": "e2bdb571f8913bfa5a3489e5787572c72f741690ae3e7f8852995a6ab75ebce2"
+    },
+    "data/raw/wind_farms.mat": {
+      "bytes": 24585308,
+      "sha256": "68406f58ccbb3ebd70f704ffb45b7a1bfc899c6512228994f4f1d725fe2fbd1b"
+    },
+    "paper/Published_FLINS2026_OnlinePowerDispatch.pdf": {
+      "bytes": 53358965,
+      "sha256": "438d4df96f6a8ba1f9fbe28ca20ca275ab016d6ae9ab8f85bba3be096c9a6231"
+    },
+    "requirements.txt": {
+      "bytes": 41,
+      "sha256": "44ce197be59534a05b6a4a3c57ecaa5a4ef0b918d3a08e52a2b3d05ddfb161a0"
+    },
+    "run_experiments.py": {
+      "bytes": 4331,
+      "sha256": "678af863553e5e619fc5700e7b34e6999c228477b4ca14d256ff183c7b1b7993"
+    },
+    "scripts/baselines.py": {
+      "bytes": 2060,
+      "sha256": "a87f900297721a9df8859ab5c4324491d7273c79b96559b21c19574bf500182e"
+    },
+    "scripts/config.yaml": {
+      "bytes": 1077,
+      "sha256": "8ac856affddd540ed094336dc41bc060eee3bdd44bfb594d1be04958d1ba101a"
+    },
+    "scripts/damage_estimator.py": {
+      "bytes": 4605,
+      "sha256": "3a642f040dc90545617aae8139996f0988812c34c3b54582d493eb9a5b73eb3a"
+    },
+    "scripts/load_estimator.py": {
+      "bytes": 21910,
+      "sha256": "b43c8f5a35eb4f464071b3e7041b2a80d3baabef6a4216d1547009032dd4fe60"
+    },
+    "scripts/main.py": {
+      "bytes": 32336,
+      "sha256": "63af5300694250504fc5f864a8b58a1c72f829069a798b12978dfc1da3d48997"
+    },
+    "scripts/optimizer.py": {
+      "bytes": 5816,
+      "sha256": "2458ab0b8434284916266ad0755069b9f5e574e83c03d99f4e3be0f8941f9ee7"
+    },
+    "scripts/rainflow_eval.py": {
+      "bytes": 5448,
+      "sha256": "efda80ddb2734439e72709936615294a2723f9582fef5602670e6194a736e735"
+    },
+    "tests/test_core.py": {
+      "bytes": 2478,
+      "sha256": "cc431174779686bf5d2023433d65ec50b5991cf50eb71d07fa7d75fde4c65591"
+    },
+    "tests/test_input_safety.py": {
+      "bytes": 6264,
+      "sha256": "0eccd2f72ab88ef87a3e44496283f1683a4b05bf509a2e2bc3c8c014bc79b93f"
+    },
+    "tools/prepare_data.py": {
+      "bytes": 4415,
+      "sha256": "ece42562e09d39ea511c95e2b68445a320f798884742e88ec0b8ef0df7127f46"
+    }
+  }
+}
